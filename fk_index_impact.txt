@@ -1,0 +1,18 @@
+select u.last_name,sum(o.price)
+from users as u
+inner join orders as o on o.user_id = u.id
+where u.last_name = 'Haley'
+group by 1
+order by 2 desc;
+DETAIL:  ! system usage stats:
+        !       0.243674 elapsed 0.221640 user 0.021172 system sec
+
+
+CREATE INDEX index_users_on_last_name ON users USING btree(last_name);
+DETAIL:  ! system usage stats:
+        !       0.243382 elapsed 0.221215 user 0.021065 system sec
+
+CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+DETAIL:  ! system usage stats:
+        !       0.004092 elapsed 0.004052 user 0.000024 system sec
+
